@@ -19,56 +19,98 @@ body {
 }
 
 .view-left, .view-right {
-	display: block;
-	position: relative;
-	margin: 0 auto;
 	height: 100%;
 	width: 100%;
 	float: left;
+	padding-bottom: 10px;
 }
 
-.left-player, .right-player {
-	width: 60%;
-	position: relative;
-	max-height: fit-content;
+.player-left, .player-right {
+	width:95%;
 	display: block;
+	position: relative;
 	margin: 0 auto;
-	padding-top: 20px;
+	max-height: fit-content;
 }
 
-.left-player img, .right-player img {
-	width:100%;
+.player-left-hand, .player-right-hand {
+    height: 95%;
+    padding: 15px 0;
+    display: inline-flex;
+    flex-direction: column;
+	overflow-x: scroll;
+	float: left;
+	border: 1px;
+	position : relative;
 }
 
-.left-player img.rest, .right-player img.rest {
-	margin-top: -120px;
+.player-left-hand img, .player-right-hand img {
+	width: 100%;
+	box-shadow: 0;
+	border: none;
+	border-radius:10px;
+}
+
+.player-left-hand img.rest, .player-right-hand img.rest {
+	margin-top: -80px;
+}
+
+
+.view-center {
+	float:left;
 }
 
 .view-top {
-	display: block;
-	position: relative;
-	margin: 0 auto;
-	height: 19vh;
+	height: 17vh;
 	width: 100%;
 	float: left;
-	padding-top: 10px;
+	padding-bottom: 10px;
 }
 
-.top-player {
-	height: 100%;
-	position: relative;
-	max-width: fit-content;
+.player-top {
+	width:70%;
 	display: block;
+	position: relative;
 	margin: 0 auto;
+	max-width: fit-content;
 }
 
-.top-player img {
-	height:100%;
+.player-top-hand {
+    height: 95%;
+    padding: 15px 0;
+	display: inline-flex;
+	overflow-x: scroll;
+	float: left;
+	border: 1px;
+	position : relative;
 }
 
-.top-player img.rest {
-	margin-right: -110px;
+.player-top-hand img {
+	width: 100%;
+	box-shadow: 0;
+	border: none;
+	border-radius:10px;
 }
+
+.player-top-hand img.rest {
+	margin-right: -80px;
+}
+
+
+.view-middle {
+    height: 50vh;
+    width: 100%;
+    float: left;
+    display: block;
+}
+
+.playing-card {
+	min-width: 0;
+	min-height: 0;
+	position: relative;
+}
+
+
 
 
 .player-bottom {
@@ -145,6 +187,7 @@ body {
 }
 
 .chatroom-user {
+	margin-right: 0.25em;
 	color: blue;
 }
 
@@ -162,12 +205,19 @@ body {
 	border: black 1px solid;
 }
 
+.chatroom-message {
+	overflow-wrap: break-word;
+}
+
 /* width */
 ::-webkit-scrollbar {
 	width: 10px;
 }
 
-.card-display::-webkit-scrollbar {
+.card-display::-webkit-scrollbar, 
+.player-top-hand::-webkit-scrollbar, 
+.player-left-hand::-webkit-scrollbar, 
+.player-right-hand::-webkit-scrollbar {
 	display:none;
 }
 
