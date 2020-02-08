@@ -3,12 +3,12 @@
 <html>
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
 	<!-- Favicon-->
 	<link rel="shortcut icon" href="">
@@ -32,49 +32,74 @@
 	<link rel="stylesheet" href="styles.css">
 
 	<!-- JavaScript -->
-	<script src="main.js"></script>	
+	<script src="./services/main.js"></script>	
 </head>
 
 <body>
-	<div id="table" class="container-fluid">
-		<div class="row short">
-			<div class="col">
+		<div id="table" class="col-9">
+			<div class="player-view">
 			</div>
-			<div class="col-6 user">
-			<h1>TOP USER</h1>
-			</div>
-			<div class="col">
+			<div class="player-hand">
 			</div>
 		</div>
-		<div class="row long">
-			<div class="col user">
-			<h1>LEFT USER</h1>
+		<div id="console" class="col-3">
+			<div class="chatroom-display">
+				<div class="chatroom-block">
+					<span class="chatroom-user">Some user:</span>
+					<span class="chatroom-message">This is a message that says things just to test how everything displays.</span>
+				</div>
+				<div class="chatroom-block">
+					<span class="chatroom-user">Other person:</span>
+					<span class="chatroom-message">This is another message that says things just to test how everything displays.</span>
+				</div>
+				<div class="chatroom-block">
+					<span class="chatroom-command">This is an important command.</span>
+				</div>
+				<div class="chatroom-block">
+					<span class="chatroom-user current-user">Current user:</span>
+					<span class="chatroom-message">This is a message that says things just to test how everything displays.</span>
+				</div>
+				<div class="chatroom-block">
+					<span class="chatroom-user">Other person:</span>
+					<span class="chatroom-message">This is another message that says things just to test how everything displays.</span>
+				</div>
+				<div class="chatroom-block">
+					<span class="chatroom-user">Some user:</span>
+					<span class="chatroom-message">This is a message that says things just to test how everything displays.</span>
+				</div>
+				<div class="chatroom-block">
+					<span class="chatroom-user current-user">Current user:</span>
+					<span class="chatroom-message">This is another message that says things just to test how everything displays.</span>
+				</div>
+				<div class="chatroom-block">
+					<span class="chatroom-user">Some user:</span>
+					<span class="chatroom-message">This is a message that says things just to test how everything displays.</span>
+				</div>
+				<div class="chatroom-block">
+					<span class="chatroom-command">A trump card has been played.</span>
+				</div>
+				<div class="chatroom-block">
+					<span class="chatroom-user  current-user">Current user:</span>
+					<span class="chatroom-message">This is another message that says things just to test how everything displays.</span>
+				</div>
+				<div class="chatroom-block">
+					<span class="chatroom-user">Some user:</span>
+					<span class="chatroom-message">This is a message that says things just to test how everything displays.</span>
+				</div>
+				<div class="chatroom-block">
+					<span class="chatroom-user">Other person:</span>
+					<span class="chatroom-message">This is another message that says things just to test how everything displays.</span>
+				</div>
 			</div>
-			<div class="col-6 user">
-			<h1>CENTER</h1>
-			</div>
-			<div class="col user">
-			<h1>RIGHT USER</h1>
+			<textarea name="comment" form="message" class="chatroom-user-input" placeholder="Type a message here..."></textarea>
 			</div>
 		</div>
-		<div class="row short">
-			<div class="col">
-			</div>
-			<div class="col-6 user">
-			<h1>CURRENT USER</h1>
-			</div>
-			<div class="col">
-			</div>
-		</div>
-	</div>
 
-
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
 
 </html>

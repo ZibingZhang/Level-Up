@@ -1,28 +1,56 @@
 body {
 	font-family: 'Open Sans', sans-serif;
 	margin: 0 auto;
+	width: 100%;
+	height: 100vh;
+	overflow: hidden;
 }
 
 #table {
-	width: 100vh;
-	height:100vh;
+	height:100%;
 	background: maroon;
+	float: left;
 }
 
-.user {
+#console {
+	height: 100%;
 	background: white;
+	float: left;
 }
 
-h1 {
-	margin: 0 auto;
-	width: 100%;
-	text-align: center;
+.chatroom-display {
+    width: 100%;
+    height: 70vh;
+    margin-top: 2.5vh;
+    padding: 5%;
+    border: black 1px solid;
+    overflow-y: scroll;
 }
 
-.row.short {
-	height: 17vh;
+.chatroom-block {
+    font-size: 0.75em;
+    margin-bottom: 0.5em;
 }
 
-.row.long {
-	height:66vh;
+.chatroom-user, .chatroom-command {
+	color: black;
+    font-weight: 800;
+}
+
+.chatroom-user {
+    color: blue;
+}
+
+.chatroom-user.current-user {
+	color: red;
+}
+
+.chatroom-user-input {
+    width: 100%;
+    height: 22.5vh;
+    max-height: 22.5vh;
+    margin: 2.5vh 0;
+    font-size: 0.75em;
+    padding: 5%;
+    border: black 1px solid;
 }
