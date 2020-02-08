@@ -1,4 +1,4 @@
-not_started = {"players": []}
+not_started = {"players": {}}
 
 
 def add_player(name, posn):
