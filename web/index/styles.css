@@ -1,0 +1,28 @@
+body {
+	font-family: 'Open Sans', sans-serif;
+	margin: 0 auto;
+}
+
+#table {
+	width: 100vh;
+	height:100vh;
+	background: maroon;
+}
+
+.user {
+	background: white;
+}
+
+h1 {
+	margin: 0 auto;
+	width: 100%;
+	text-align: center;
+}
+
+.row.short {
+	height: 17vh;
+}
+
+.row.long {
+	height:66vh;
+}
