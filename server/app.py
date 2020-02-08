@@ -32,6 +32,9 @@ cursor.execute(
 
 cursor.execute(
     "CREATE TABLE IF NOT EXISTS PLAYERS ("
+        "POSITION VARCHAR(1) NOT NULL, "
+        "PLAYER_NAME VARCHAR(20) NOT NULL"
+    ")"
 )
 
 
@@ -41,6 +44,9 @@ def chat():
     message = request.json['message']
 
     if message[0] == "/":
+        args = message[1:][:-1].split(" ")
+        command = args[0]
+        params = args[1:]
         # TODO: deal with commands
         return "Command"
     else:
