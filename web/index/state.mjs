@@ -1,9 +1,13 @@
+import {
+    DEFAULT
+} from './constants.mjs';
+
 export {
     initState,
 }
 
 function initState() {
     document.state = {
-        name: '[NAME]',
+        name: DEFAULT.NAME,
     }
 }

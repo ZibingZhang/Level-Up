@@ -1,7 +1,14 @@
-import { URL } from './constants.mjs';
+import { 
+    URL,
+    CHAT,
+    COMMAND,
+    DEFAULT
+} from './constants.mjs';
 
 export {
     listenToEnter,
+    addChatroomCommand,
+    addChatroomMessage,
 };
 
 function listenToEnter() {
@@ -13,20 +20,31 @@ function listenToEnter() {
             playerName: 'Anisa',
             message
         }).then(r => {
-            if (r.data.type === 'message') {
+            if (r.data.type === CHAT.TYPE.MESSAGE) {
                 addChatroomMessage(true, document.state.name, message);
-            } else if (r.data.type === 'command') {
-                if (r.data.error === true) {
-                    addChatroomCommand(r.data.message);
-                } else if (r.data.error === false) {
-                    console.log("Asdf");
-                }
+            } else if (r.data.type === CHAT.TYPE.COMMAND) {
+                commandResponse(r.data);
             }
         });
         chatroom.value = '';
     };
     });
 };
+
+function commandResponse(data) {
+    if (data.message) {
+        addChatroomCommand(data.message);
+    }
+    const command = data.command;
+
+    if (command === COMMAND.JOIN) {
+        document.state.name = data.playerName;
+    } else if (command === COMMAND.RESET) {
+        document.state.name = DEFAULT.NAME;
+    } else if (command === COMMAND.HOST) {
+        document.state.name = data.playerName;
+    }
+}
 
 function addChatroomCommand(message) {
     const chatroomBlock = document.createElement('div');

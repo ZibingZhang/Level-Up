@@ -1,5 +1,5 @@
-import { listenToEnter } from './chat.mjs';
+import { listenToEnter as chatListenToEnter } from './chat.mjs';
 import { initState } from './state.mjs';
 
 initState();
-listenToEnter();
+chatListenToEnter();

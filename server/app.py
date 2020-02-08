@@ -26,6 +26,11 @@ cursor.execute(
 )
 
 
+@app.route("/action", methods=["POST"])
+def action():
+    pass
+
+
 @app.route("/chat", methods=["POST"])
 def chat():
     player_name = request.json['playerName']
@@ -33,12 +38,12 @@ def chat():
 
     if message[0] == "/":
         args = message[1:][:-1].split(" ")
-        command = args[0]
+        command = args[0].upper()
         params = args[1:]
         return chatService.command(command, params)
     else:
         chatService.add_message(player_name, message)
-        return {'type': 'message'}
+        return {'type': 'MESSAGE'}
 
 
 if __name__ == "__main__":

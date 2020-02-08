@@ -10,3 +10,9 @@ def add_message(player_name, message):
         ")", (player_name, message)
     )
     cnx.commit()
+
+
+def reset():
+    cursor.execute(
+        "DELETE FROM levelup.messages"
+    )

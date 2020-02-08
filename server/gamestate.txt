@@ -1,11 +1,11 @@
 A GameState is an enumeration of one of:
 - NotStarted : which is when the game has not started (players are joining)
--DrawingPhase : where players are drawing from the deck
--DiscardingPhase : the starting player gains the bottom 8 cards and discards 8 cards
--InPlay : tricks are played, points are accrued, starting player changes based on who won last trick,
+- DrawingPhase : where players are drawing from the deck
+- DiscardingPhase : the starting player gains the bottom 8 cards and discards 8 cards
+- InPlay : tricks are played, points are accrued, starting player changes based on who won last trick,
           first trick is started by player who was
--BetweenRounds : after a round, a waiting period for everyone to ready up
--GameOver : once a team finishes and wins Aces trump round, game is over
+- BetweenRounds : after a round, a waiting period for everyone to ready up
+- GameOver : once a team finishes and wins Aces trump round, game is over
 
 NotStarted:
     - Players

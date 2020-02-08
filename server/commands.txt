@@ -1,0 +1,4 @@
+/reset
+/join [Position] [Name]
+/rejoin [Position]
+/host [Name]
