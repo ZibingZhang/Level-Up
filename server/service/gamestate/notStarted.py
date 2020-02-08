@@ -1,12 +1,12 @@
-not_started = {"players": {}}
+not_started = {'status': "NOT STARTED", 'players': {}}
 
 
 def add_player(name, posn):
-    not_started["players"].append({"player": name, "position": posn})
+    not_started['players'].append({'player': name, 'position': posn})
 
 
 def check_start():
-    if len(not_started["players"]) == 4:
+    if len(not_started['players']) == 4:
         return True
     else:
         return False
