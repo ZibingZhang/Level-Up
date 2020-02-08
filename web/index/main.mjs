@@ -1,3 +1,3 @@
-$('.card').click(function() {
-    $(this).toggleClass('selected');
-});
+import { listenToEnter } from './chat.mjs';
+
+listenToEnter();

@@ -30,11 +30,15 @@ cursor.execute(
     ")"
 )
 
+cursor.execute(
+    "CREATE TABLE IF NOT EXISTS PLAYERS ("
+)
+
 
 @app.route("/chat", methods=["POST"])
 def chat():
-    player_name = request.form['playerName']
-    message = request.form['message']
+    player_name = request.json['playerName']
+    message = request.json['message']
 
     if message[0] == "/":
         # TODO: deal with commands
