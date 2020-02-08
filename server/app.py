@@ -1,8 +1,10 @@
-from flask import Flask
+from flask import Flask, request
 from flask_cors import CORS
 from mysql import connector
 import yaml
 import os
+
+from service import chatService
 
 app = Flask(__name__)
 CORS(app)
@@ -20,27 +22,26 @@ cursor = cnx.cursor()
 # if tables don't exist then create them
 # MESSAGES table
 cursor.execute(
-    "SELECT COUNT(*) FROM (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'messages') count"
-)
-if cursor.fetchone()[0] == 0:
-    cursor.execute(
-        "CREATE TABLE MESSAGES ("
-        "ID INT PRIMARY KEY, "
+    "CREATE TABLE IF NOT EXISTS MESSAGES ("
+        "ID INT AUTO_INCREMENT PRIMARY KEY, "
+        "RECIPIENT VARCHAR(3) NOT NULL, "
         "SENDER VARCHAR(20) NOT NULL, "
-        "MESSAGE VARCHAR(200) NOT NULL)"
-    )
+        "MESSAGE VARCHAR(200) NOT NULL"
+    ")"
+)
 
 
-@app.route("/test", methods=["GET"])
-def hello():
-    return "Hello World!"
+@app.route("/chat", methods=["POST"])
+def chat():
+    player_name = request.form['playerName']
+    message = request.form['message']
 
-
-@app.route("/insert", methods=["POST"])
-def insert():
-    cursor.execute("INSERT INTO MESSAGES (ID, SENDER, MESSAGE) VALUES (1, 'Anisa', 'hello world')")
-    cnx.commit()
-    return "inserted"
+    if message[0] == "/":
+        # TODO: deal with commands
+        return "Command"
+    else:
+        chatService.add_message(cnx, player_name, message)
+        return "Message"
 
 
 if __name__ == "__main__":
