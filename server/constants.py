@@ -1,3 +1,7 @@
+import os
+import yaml
+from mysql import connector
+
 cards = {"Two": {"val": 2, "points": 0, "name": "TWO"},
          "Three": {"val": 3, "points": 0, "name": "THREE"},
          "Four": {"val": 4, "points": 0, "name": "FOUR"},
@@ -16,3 +20,12 @@ cards = {"Two": {"val": 2, "points": 0, "name": "TWO"},
 
 suit = {"Heart": "HEART", "Spade": "SPADE", "Club": "CLUB", "Diamond": "DIAMOND"}
 
+_config_path = os.path.join(os.getcwd(), 'config.yml')
+with open(_config_path) as file:
+    _config = yaml.load(file, Loader=yaml.SafeLoader)
+
+cnx = connector.connect(user=_config['database']['user'],
+                        password=_config['database']['password'],
+                        host=_config['database']['host'],
+                        database=_config['database']['database'])
+cursor = cnx.cursor()

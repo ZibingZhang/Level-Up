@@ -1,26 +1,13 @@
 from flask import Flask, request
 from flask_cors import CORS
-from mysql import connector
-import yaml
-import os
 
 from service import chatService
+from constants import cursor
 
 app = Flask(__name__)
 CORS(app)
 
-config_path = os.path.join(os.getcwd(), 'config.yml')
-with open(config_path) as file:
-    config = yaml.load(file, Loader=yaml.SafeLoader)
-
-cnx = connector.connect(user=config['database']['user'],
-                        password=config['database']['password'],
-                        host=config['database']['host'],
-                        database=config['database']['database'])
-cursor = cnx.cursor()
-
-# if tables don't exist then create them
-# MESSAGES table
+# messages table
 cursor.execute(
     "CREATE TABLE IF NOT EXISTS MESSAGES ("
         "ID INT AUTO_INCREMENT PRIMARY KEY, "
@@ -30,6 +17,7 @@ cursor.execute(
     ")"
 )
 
+# players table
 cursor.execute(
     "CREATE TABLE IF NOT EXISTS PLAYERS ("
         "POSITION VARCHAR(1) NOT NULL, "
@@ -47,11 +35,10 @@ def chat():
         args = message[1:][:-1].split(" ")
         command = args[0]
         params = args[1:]
-        # TODO: deal with commands
-        return "Command"
+        return chatService.command(command, params)
     else:
-        chatService.add_message(cnx, player_name, message)
-        return "Message"
+        chatService.add_message(player_name, message)
+        return {'type': 'message'}
 
 
 if __name__ == "__main__":

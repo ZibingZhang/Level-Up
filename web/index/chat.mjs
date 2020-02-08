@@ -12,22 +12,58 @@ function listenToEnter() {
         axios.post(`${URL}/chat`, {
             playerName: 'Anisa',
             message
-        }).then(r => addChatroomCommand(r.data));
+        }).then(r => {
+            if (r.data.type === 'message') {
+                addChatroomMessage(true, document.state.name, message);
+            } else if (r.data.type === 'command') {
+                if (r.data.error === true) {
+                    addChatroomCommand(r.data.message);
+                } else if (r.data.error === false) {
+                    console.log("Asdf");
+                }
+            }
+        });
         chatroom.value = '';
     };
     });
 };
 
 function addChatroomCommand(message) {
-    let chatroomBlock = document.createElement('div');
+    const chatroomBlock = document.createElement('div');
     chatroomBlock.className = 'chatroom-block';
 
-    let chatroomCommand = document.createElement('span');
+    const chatroomCommand = document.createElement('span');
     chatroomCommand.className = 'chatroom-command';
     chatroomCommand.innerHTML = message;
-
     chatroomBlock.appendChild(chatroomCommand);
 
-    let chatroom = document.getElementsByClassName('chatroom-display')[0];
+    const chatroom = document.getElementsByClassName('chatroom-display')[0];
     chatroom.appendChild(chatroomBlock);
+
+    scrollToBottom();
+}
+
+function addChatroomMessage(currentPlayer, playerName, message) {
+    const chatroomBlock = document.createElement('div');
+    chatroomBlock.className = 'chatroom-block';
+
+    const chatroomUser = document.createElement('span');
+    chatroomUser.className = `chatroom-user ${currentPlayer ? 'current-user' : ''}`;
+    chatroomUser.innerHTML = `${playerName}:`;
+    chatroomBlock.appendChild(chatroomUser);
+
+    const chatroomMessage = document.createElement('span');
+    chatroomMessage.className = 'chatroom-message';
+    chatroomMessage.innerHTML = message;
+    chatroomBlock.appendChild(chatroomMessage);
+
+    const chatroom = document.getElementsByClassName('chatroom-display')[0];
+    chatroom.appendChild(chatroomBlock);
+
+    scrollToBottom();
+}
+
+function scrollToBottom() {
+    const chatroom = document.getElementsByClassName('chatroom-display')[0];
+    chatroom.scrollTop = chatroom.scrollHeight;
 }
