@@ -1,28 +1,42 @@
+from .gamestate.drawingPhase import *
+from ..constants import *
+
+
+def in_hand(find, hand):
+    for idx, card in enumerate(hand):
+        if find['suit'] == card['suit'] and find['card']['val'] == card['card']['val']:
+            return {'found': True,
+                    'location': idx}
+    return {'found': False,
+            'location': -1}
+
+
 def discard(posn, cards):
-    gamestate = None  #Need gamestate
-    for card_key in cards.keys():
-        if card_key not in gamestate.player(posn).hand.keys():
-            return False
-        if gamestate.player(posn).hand.get(card_key).get("quantity") == 2:
-            gamestate.player(posn).hand.get(card_key).get("quantity") == 1
+    gamestate = drawing_phase
+    for card in cards:
+        hand_info = in_hand(card, drawing_phase['player'][posn]['hand'])
+        if hand_info['found']:
+            drawing_phase['discard'].append(card)
+            del drawing_phase['players'][posn]['hand'][hand_info['location']]
         else:
-            del gamestate.player(posn).hand[card_key]
-    gamestate.discard_pile = cards
-    return True
+            return {'error': True,
+                    'message': "Card not in player's hand"}
+    return {'error': False,
+            'message': "Cards have been added to discard pile"}
 
 
 def draw(posn, card):
-    gamestate = None
-    if card.key in gamestate.player(posn).hand.keys():
-        gamestate.player(posn).hand.get(card.key).get("quantity") == 2
+    gamestate = drawing_phase
+    hand_info = in_hand(card, drawing_phase['deck'])
+    if hand_info['found']:
+        drawing_phase['player'][posn]['hand'].append(card)
+        del drawing_phase['deck'][hand_info['location']]
+        return {'error': False,
+                'message': "Card removed from deck and added to player's hand"}
     else:
-        gamestate.player(posn).hand[card.key] = {"card": card, "quantity": 1}
-    if gamestate.deck.get(card.key).get("quantity") == 2:
-        gamestate.deck.get(card.key).get("quantity") == 1
-    else:
-        del gamestate.deck[card.key]
+        return {'error': True,
+                'message': "Card not in deck"}
 
 
 def play(posn, cards):
     gamestate = None
-
