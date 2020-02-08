@@ -25,6 +25,13 @@ cursor.execute(
     ")"
 )
 
+# gamestate table
+cursor.execute(
+    "CREATE TABLE IF NOT EXISTS GAMESTATE ("
+        "GAMESTATE VARCHAR(10000) NOT NULL"
+    ")"
+)
+
 
 @app.route("/action", methods=["POST"])
 def action():
