@@ -16,12 +16,14 @@ Drawing Phase:
         - Card
             - Suit
             - Value
+            - Quantity
     - Players
         - Player
             - Hand
                 - Card
+                    - Quantity
             - Position
-            - First Draw : Boolean
+            - First Move : Boolean
             - Defender : 2 Players
     - Trump
         - Trump Suit
