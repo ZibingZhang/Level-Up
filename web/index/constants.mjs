@@ -17,7 +17,8 @@ const CHAT = {
 const COMMAND = {
     JOIN: "JOIN",
     RESET: "RESET",
-    HOST: "HOST"
+    HOST: "HOST",
+    REJOIN: "REJOIN"
 }
 
 const DEFAULT = {

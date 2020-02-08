@@ -155,4 +155,5 @@ cnx = connector.connect(user=_config['database']['user'],
                         password=_config['database']['password'],
                         host=_config['database']['host'],
                         database=_config['database']['database'])
+cnx.autocommit = True
 cursor = cnx.cursor()

@@ -2,7 +2,7 @@ from flask import Flask, request
 from flask_cors import CORS
 
 from service import chatService
-from constants import cursor
+from constants import cursor, cnx
 
 app = Flask(__name__)
 CORS(app)
@@ -11,11 +11,11 @@ CORS(app)
 cursor.execute(
     "CREATE TABLE IF NOT EXISTS MESSAGES ("
         "ID INT AUTO_INCREMENT PRIMARY KEY, "
-        "RECIPIENT VARCHAR(3) NOT NULL, "
         "SENDER VARCHAR(20) NOT NULL, "
         "MESSAGE VARCHAR(200) NOT NULL"
     ")"
 )
+cnx.commit()
 
 # players table
 cursor.execute(
@@ -24,6 +24,7 @@ cursor.execute(
         "PLAYER_NAME VARCHAR(20) NOT NULL"
     ")"
 )
+cnx.commit()
 
 # gamestate table
 cursor.execute(
@@ -31,6 +32,7 @@ cursor.execute(
         "GAMESTATE VARCHAR(10000) NOT NULL"
     ")"
 )
+cnx.commit()
 
 
 @app.route("/action", methods=["POST"])
@@ -47,10 +49,16 @@ def chat():
         args = message[1:][:-1].split(" ")
         command = args[0].upper()
         params = args[1:]
-        return chatService.command(command, params)
+        return chatService.command(command, params,
+                                   player_name=player_name)
     else:
         chatService.add_message(player_name, message)
         return {'type': 'MESSAGE'}
+
+
+@app.route("/messages/<message_id>", methods=["GET"])
+def messages(message_id):
+    return chatService.get_next_messages(int(message_id))
 
 
 if __name__ == "__main__":

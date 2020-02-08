@@ -9,6 +9,7 @@ export {
     listenToEnter,
     addChatroomCommand,
     addChatroomMessage,
+    getNextMessages,
 };
 
 function listenToEnter() {
@@ -17,7 +18,7 @@ function listenToEnter() {
     if (event.key === 'Enter') {
         const message = chatroom.value;
         axios.post(`${URL}/chat`, {
-            playerName: 'Anisa',
+            playerName: document.state.name,
             message
         }).then(r => {
             if (r.data.type === CHAT.TYPE.MESSAGE) {
@@ -37,12 +38,20 @@ function commandResponse(data) {
     }
     const command = data.command;
 
-    if (command === COMMAND.JOIN) {
-        document.state.name = data.playerName;
-    } else if (command === COMMAND.RESET) {
-        document.state.name = DEFAULT.NAME;
-    } else if (command === COMMAND.HOST) {
-        document.state.name = data.playerName;
+    if (data.error === false) {
+        if (command === COMMAND.JOIN) {
+            document.state.name = data.playerName;
+            document.state.messageId = data.messageId;
+        } else if (command === COMMAND.RESET) {
+            document.state.name = DEFAULT.NAME;
+            document.state.messageId = -1;
+        } else if (command === COMMAND.HOST) {
+            document.state.name = data.playerName;
+            document.state.messageId = data.messageId;
+        } else if (command === COMMAND.REJOIN) {
+            document.state.name = data.playerName;
+            document.state.messageId = data.messageId;
+        }
     }
 }
 
@@ -84,4 +93,21 @@ function addChatroomMessage(currentPlayer, playerName, message) {
 function scrollToBottom() {
     const chatroom = document.getElementsByClassName('chatroom-display')[0];
     chatroom.scrollTop = chatroom.scrollHeight;
+}
+
+function getNextMessages() {
+    axios.get(`${URL}/messages/${document.state.messageId}`).then(r => {
+        const data = r.data;
+        document.state.messageId = data.messageId;
+        data.messages.forEach(messageData => {
+            const playerName = messageData[0];
+            const message = messageData[1];
+            
+            if (playerName !== document.state.name) {
+                addChatroomMessage(false, playerName, message);
+            }
+        });
+    });
+
+    setTimeout(getNextMessages, 1000);
 }

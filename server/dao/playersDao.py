@@ -1,4 +1,4 @@
-from constants import cursor, cnx
+from constants import cursor
 
 
 def get_names():
@@ -20,14 +20,12 @@ def add_player(position, player_name):
         "INSERT INTO levelup.players (POSITION, PLAYER_NAME) VALUES (%s, %s)",
         (position, player_name)
     )
-    cnx.commit()
 
 
 def reset():
     cursor.execute(
         "DELETE FROM levelup.players"
     )
-    cnx.commit()
 
 
 def has_host():
@@ -35,3 +33,19 @@ def has_host():
         "SELECT COUNT(*) FROM levelup.players WHERE POSITION='N'"
     )
     return cursor.fetchall()[0][0] == 1
+
+
+def get_player_name(position):
+    cursor.execute(
+        "SELECT PLAYER_NAME FROM levelup.players WHERE POSITION=%s",
+        (position, )
+    )
+    return cursor.fetchall()[0][0]
+
+
+def get_position(player_name):
+    cursor.execute(
+        "SELECT POSITION FROM levelup.players WHERE PLAYER_NAME=%s",
+        (player_name, )
+    )
+    return cursor.fetchall()[0][0]

@@ -2,3 +2,4 @@
 /join [Position] [Name]
 /rejoin [Position]
 /host [Name]
+/start
