@@ -1,5 +1,6 @@
-from dao import messageDao, playersDao
-from constants import COMMAND
+from dao import messageDao, playersDao, gamestateDao
+from constants import COMMAND, GAME_STATE, DECK
+from service import chatServiceWrapper
 
 
 # Assume the host is N
@@ -19,7 +20,16 @@ def command(cmd, params, **kwargs):
     elif cmd == COMMAND['rejoin']:
         result = _rejoin(params)
     elif cmd == COMMAND['start']:
-        result = _start(params, kwargs['player_name'])
+        result = _start(params, player_name=kwargs['player_name'])
+    # ACTIONS
+    elif cmd == COMMAND['action']['draw']:
+        result = _draw(params, player_name=kwargs['player_name'])
+    elif cmd == COMMAND['action']['discard']:
+        result = _discard(params, player_name=kwargs['player_name'])
+    elif cmd == COMMAND['action']['play']:
+        result = _play(params, player_name=kwargs['player_name'])
+    elif cmd == COMMAND['action']['declare']:
+        result = _declare(params, player_name=kwargs['player_name'])
     else:
         result = {'error': True,
                   'message': 'Unknown command'}
@@ -78,6 +88,7 @@ def _join(params):
 def _reset():
     playersDao.reset()
     messageDao.reset()
+    gamestateDao.reset()
     return {'error': False,
             'message': "You have reset the game"}
 
@@ -108,7 +119,7 @@ def _rejoin(params):
         return {'error': True,
                 'message': "Incorrect number of arguments"}
 
-    position = params[0]
+    position = params[0].upper()
 
     if not playersDao.has_host():
         return {'error': True,
@@ -124,16 +135,46 @@ def _rejoin(params):
                 'messageId': messageDao.get_largest_id()}
 
 
-def _start(params, player_name):
+@chatServiceWrapper.require_host
+def _start(params):
     if len(params) != 0:
         return {'error': True,
                 'message': "Incorrect number of arguments"}
-    elif playersDao.get_position(player_name) != "N":
-        return {'error': True,
-                'message': "Must be host to start game"}
     elif not all([position in playersDao.get_positions() for position in ["N", "E", "S", "W"]]):
         return {'error': True,
                 'message': "Not enough players to start game"}
+    elif gamestateDao.get_gamestate()['status'] != GAME_STATE['not started']:
+        return {'error': True,
+                'message': "Cannot start the game during a game"}
     else:
+        gamestateDao.set_gamestate({
+            'status': GAME_STATE['drawing'],
+            'last eight': None,
+            'defender': None,
+            'deck': DECK.copy(),
+            'players': {
+                'N'
+            }
+        })
         return {'error': False,
                 'message': "You have started the game"}
+
+
+@chatServiceWrapper.require_host
+def _draw(params):
+    pass
+
+
+@chatServiceWrapper.require_host
+def _discard(params):
+    pass
+
+
+@chatServiceWrapper.require_host
+def _play(params):
+    pass
+
+
+@chatServiceWrapper.require_host
+def _declare(params):
+    pass

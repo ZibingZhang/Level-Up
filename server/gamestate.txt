@@ -8,15 +8,15 @@ A GameState is an enumeration of one of:
 - GameOver : once a team finishes and wins Aces trump round, game is over
 
 NotStarted:
-    - Players
-        - Player
 
 Drawing Phase:
+    - Draw Next : Position
+    - Last Eight : Position / None
+    - Defender : NS / EW / None
     - Deck
         - Card
             - Suit
             - Value
-            - Quantity
     - Players
         - Player
             - Hand
@@ -28,15 +28,17 @@ Drawing Phase:
     - Trump
         - Trump Suit
         - Trump Number
+    - Teams
+        - Level
 
 Discarding Phase: same as Drawing Phase
 
 In Play : same as Drawing Phase
-    - Players
-        - Player
-            - Points
-            - Current Play
+    - Points
     - Trick
+        - Starter : Position
+        - Current Play
+        - Style
         - Suit
 
 Between Rounds: same as In Play

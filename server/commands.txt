@@ -3,3 +3,8 @@
 /rejoin [Position]
 /host [Name]
 /start
+
+/draw [Position]/[Number]
+/discard [Position] [Card] [Card] [Card] [Card] [Card] [Card] [Card] [Card]
+/play [Position] [Card]+
+/declare [Position] [Card]

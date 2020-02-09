@@ -18,7 +18,13 @@ const COMMAND = {
     JOIN: "JOIN",
     RESET: "RESET",
     HOST: "HOST",
-    REJOIN: "REJOIN"
+    REJOIN: "REJOIN",
+    ACTIONS: {
+        DRAW: "DRAW",
+        DISCARD: "DISCARD",
+        PLAY: "PLAY",
+        DECLARE: "DECLARE"
+    }
 }
 
 const DEFAULT = {

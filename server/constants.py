@@ -33,7 +33,36 @@ COMMAND = {
     'reset': "RESET",
     'rejoin': "REJOIN",
     'host': "HOST",
-    'start': "START"
+    'start': "START",
+    'action': {
+        'draw': "DRAW",
+        'discard': "DISCARD",
+        'play': "PLAY",
+        'declare': "DECLARE"
+    }
+}
+
+GAME_STATE = {
+    'not_started': "NOT_STARTED",
+    'drawing': "DRAWING",
+    'discarding': "DISCARDING",
+    'in play': "IN_PLAY",
+    'between rounds': "BETWEEN_ROUNDS",
+    'game over': "GAME_OVER"
+}
+
+POSITION = {
+    'north': "NORTH",
+    'east': "EAST",
+    'south': "SOUTH",
+    'west': "WEST"
+}
+
+POSITION_TO_WORD = {
+    'N': "north",
+    'N': "north",
+    'N': "north",
+    'N': "north"
 }
 
 DECK = {

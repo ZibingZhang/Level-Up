@@ -1,6 +1,7 @@
 from .gamestate.drawingPhase import *
 from .gamestate.inPlay import *
 from ..constants import *
+from dao import gamestateDao
 
 
 def in_hand(find, hand):
@@ -12,13 +13,13 @@ def in_hand(find, hand):
             'location': -1}
 
 
-def discard(posn, cards):
-    gamestate = drawing_phase
+def discard(position, cards):
+    gamestate = gamestateDao.get_gamestate()
     for card in cards:
-        hand_info = in_hand(card, gamestate['player'][posn]['hand'])
+        hand_info = in_hand(card, gamestate['player'][position]['hand'])
         if hand_info['found']:
             gamestate['discard'].append(card)
-            del gamestate['players'][posn]['hand'][hand_info['location']]
+            del gamestate['players'][position]['hand'][hand_info['location']]
         else:
             return {'error': True,
                     'message': "Card not in player's hand"}

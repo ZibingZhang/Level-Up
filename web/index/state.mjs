@@ -9,6 +9,7 @@ export {
 function initState() {
     document.state = {
         name: DEFAULT.NAME,
-        messageId: -1
+        messageId: -1,
+        position: undefined
     }
 }

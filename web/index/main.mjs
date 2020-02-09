@@ -8,4 +8,4 @@ import { loadCards } from './loadCards.mjs';
 initState();
 loadCards();
 chatListenToEnter();
-chatGetNextMessages();
+// chatGetNextMessages();

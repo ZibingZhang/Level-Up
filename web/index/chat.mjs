@@ -42,15 +42,29 @@ function commandResponse(data) {
         if (command === COMMAND.JOIN) {
             document.state.name = data.playerName;
             document.state.messageId = data.messageId;
+            document.state.position = data.position;
         } else if (command === COMMAND.RESET) {
             document.state.name = DEFAULT.NAME;
             document.state.messageId = -1;
         } else if (command === COMMAND.HOST) {
             document.state.name = data.playerName;
             document.state.messageId = data.messageId;
+            document.state.position = data.position;
         } else if (command === COMMAND.REJOIN) {
             document.state.name = data.playerName;
             document.state.messageId = data.messageId;
+            document.state.position = data.position;
+        } else {
+            // ACTIONS
+            if (command === COMMAND.ACTION.DRAW) {
+
+            } else if (command === COMMAND.ACTION.DISCARD) {
+
+            } else if (command === COMMAND.ACTION.PLAY) {
+
+            } else if (command === COMMAND.ACTION.DECLARE) {
+                
+            }
         }
     }
 }
