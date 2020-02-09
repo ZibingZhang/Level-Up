@@ -25,17 +25,22 @@ def command(cmd, params, **kwargs):
     # ACTIONS
     elif cmd == COMMAND['action']['draw']:
         result = _draw(params, player_name=kwargs['player_name'])
-    elif cmd == COMMAND['action']['discard']:
-        result = _discard(params, player_name=kwargs['player_name'])
+    # elif cmd == COMMAND['action']['discard']:
+    #     result = _discard(params, player_name=kwargs['player_name'])
     elif cmd == COMMAND['action']['play']:
         result = _play(params, player_name=kwargs['player_name'])
     elif cmd == COMMAND['action']['declare']:
         result = _declare(params, player_name=kwargs['player_name'])
+    # OTHER
+    elif cmd == COMMAND['other']['gamestate']:
+        return {'error': False,
+                'type': "COMMAND",  # constant
+                'message': str(gamestateDao.get_gamestate())}
     else:
         result = {'error': True,
                   'message': 'Unknown command'}
 
-    result['type'] = "COMMAND"
+    result['type'] = "COMMAND"  # constant
     result['command'] = cmd.upper()
     return result
 

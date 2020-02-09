@@ -33,7 +33,8 @@ def draw(position):
             return {'error': False,
                     'message': "Now waiting for discarding",
                     'position': position,
-                    'card': _card_to_string(card)}
+                    'card': _card_to_string(card),
+                    'cards': [_card_to_string(card) for card in gamestate['deck'].values()]}
         else:
             gamestate['draw next'] = DRAW_ORDER[gamestate['draw next']]
             gamestateDao.set_gamestate(gamestate)

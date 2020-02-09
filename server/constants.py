@@ -39,6 +39,9 @@ COMMAND = {
         'discard': "DISCARD",
         'play': "PLAY",
         'declare': "DECLARE"
+    },
+    'other': {
+        'gamestate': 'GAMESTATE'
     }
 }
 

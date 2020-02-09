@@ -4,7 +4,7 @@
 /host [Name]
 /start
 
-/draw [Position]/[Number]
+/draw [Position]
 /discard [Position] [Card] [Card] [Card] [Card] [Card] [Card] [Card] [Card]
 /play [Position] [Card]+
 /declare [Position] [Card]
