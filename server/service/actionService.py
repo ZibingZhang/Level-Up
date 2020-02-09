@@ -23,6 +23,7 @@ def _round_over(gamestate):
             return False
     return True
 
+
 def discard(position, cards):
     gamestate = gamestateDao.get_gamestate()
 
@@ -43,7 +44,7 @@ def discard(position, cards):
 def draw(position):
     gamestate = gamestateDao.get_gamestate()
 
-    if position != gamestate['draw next']:
+    if LETTER_TO_POSITION_KEY[position.upper()] != gamestate['draw next']:
         return {'error': True,
                 'message': "Not your turn to draw"}
     else:
@@ -145,5 +146,14 @@ def play(posn, cards):
     else:
         if check_style(gamestate, sorted_cards)['error']:
             return check_style(gamestate, sorted_cards)
-    return {'error': False,
-            'message': "Cards have been played"}
+    if _round_over(gamestate):
+        gamestate['status'] = GAME_STATE['between rounds']
+        gamestateDao.set_gamestate(gamestate)
+        return {'error': False,
+                'message': "Round is over, waiting for players to ready up",
+                'cards': [_card_to_string(card) for card in cards]}
+    else:
+        gamestateDao.set_gamestate(gamestate)
+        return {'error': False,
+                'message': "Cards have been played",
+                'cards': [_card_to_string(card) for card in cards]}
