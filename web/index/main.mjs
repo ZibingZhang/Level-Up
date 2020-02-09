@@ -9,3 +9,8 @@ initState();
 loadCards();
 chatListenToEnter();
 // chatGetNextMessages();
+
+document.onkeydown = function(e){
+    if(e.target.nodeName === 'TEXTAREA') return;
+    $('.selected').removeClass('selected');
+};
