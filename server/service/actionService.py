@@ -1,7 +1,7 @@
 from .gamestate.drawingPhase import *
 from .gamestate.inPlay import *
-from dao import gamestateDao
-from constants import LETTER_TO_POSITION_KEY
+from ..dao import gamestateDao
+from ..constants import LETTER_TO_POSITION_KEY
 
 
 def _in_cards(find, hand):
@@ -13,18 +13,31 @@ def _in_cards(find, hand):
             'location': -1}
 
 
+def _card_to_string(card):
+    SUIT_TO_STRING[card['suit']] + VAL_TO_STRING[card['value']['rank']]
+
+
+def _round_over(gamestate):
+    for player in gamestate['players'].keys():
+        if len(gamestate['players'][player]['cards']) != 0:
+            return False
+    return True
+
 def discard(position, cards):
     gamestate = gamestateDao.get_gamestate()
+
     for card in cards:
-        hand_info = _in_cards(card, gamestate['player'][position]['hand'])
+        hand_info = _in_cards(card, gamestate['player'][LETTER_TO_POSITION_KEY[position.upper()]]['hand'])
         if hand_info['found']:
-            gamestate['discard'].append(card)
-            del gamestate['players'][position]['hand'][hand_info['location']]
+            del gamestate['players'][LETTER_TO_POSITION_KEY[position.upper()]]['hand'][hand_info['location']]
         else:
             return {'error': True,
                     'message': "Card not in player's hand"}
+    gamestate['status'] = GAME_STATE['in play']
+    gamestateDao.set_gamestate(gamestate)
     return {'error': False,
-            'message': "Cards have been added to discard pile"}
+            'position': position,
+            'cards': [_card_to_string(card) for card in cards]}
 
 
 def draw(position):
@@ -34,25 +47,38 @@ def draw(position):
         return {'error': True,
                 'message': "Not your turn to draw"}
     else:
-        card = gamestate['deck'].pop(len(gamestate['deck']))
+        card = gamestate['deck'].pop(len(gamestate['deck'])) # replace with random card choosing
         gamestate['players'][LETTER_TO_POSITION_KEY[position.upper()]]['hand'].append(card)
-        return {'error': False,
-                'position': position,
-                'card': None} # to replace
+        if len(gamestate['deck']) == 8:
+            gamestate['status'] = GAME_STATE['discarding']
+            gamestateDao.set_gamestate(gamestate)
+            return {'error': False,
+                    'message': "Now waiting for discarding",
+                    'position': position,
+                    'card': _card_to_string(card)}  # to replace
+        else:
+            gamestate['draw next'] = POSITION[DRAW_ORDER[gamestate['draw next']]]
+            gamestateDao.set_gamestate(gamestate)
+            return {'error': False,
+                    'position': position,
+                    'card': _card_to_string(card)}  # to replace
 
 
-def declare(card):
-    gamestate = drawing_phase
+def declare(position, card):
+    gamestate = gamestateDao.get_gamestate()
     if card['suit'] == "NONE":
         return {'error': True,
                 'message': "Cannot declare card with NONE suit"}
-    elif gamestate['trump']['val'] != card['val']:
+    elif gamestate['team level'][PLAYER_TO_TEAM[position]] != card['value']['rank']:
         return {'error': True,
-                'message': "Cannot declare non-trump valued card"}
+                'message': "Cannot declare card with value your team is not on"}
     else:
         gamestate['trump']['suit'] = card['suit']
+        gamestate['trump']['value'] = card['value']
+        gamestateDao.set_gamestate(gamestate)
         return {'error': False,
-                'message': "A suit has been declared for the round"}
+                'position': position,
+                'card': _card_to_string(card)}
 
 
 def check_suits(gamestate, posn, cards):
@@ -101,7 +127,10 @@ def check_style(gamestate, cards):
 
 
 def play(posn, cards):
-    gamestate = in_play
+    gamestate = gamestateDao.get_gamestate()
+    if len(cards) > 2:
+        return {'error': True,
+                'message': "More than two cards cannot be played (currently)"}
     sorted_cards = sorted(cards, key=lambda k: k['val'])
     for card in cards:
         hand_info = _in_cards(card, gamestate['player'][posn]['hand'])

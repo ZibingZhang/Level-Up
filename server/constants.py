@@ -45,7 +45,7 @@ COMMAND = {
 GAME_STATE = {
     'not_started': "NOT_STARTED",
     'drawing': "DRAWING",
-    'discarding': "DISVALUEING",
+    'discarding': "DISCARDING",
     'in play': "IN_PLAY",
     'between rounds': "BETWEEN_ROUNDS",
     'game over': "GAME_OVER"
@@ -63,6 +63,20 @@ LETTER_TO_POSITION_KEY = {
     'E': "east",
     'S': "south",
     'W': "west"
+}
+
+DRAW_ORDER = {
+    'N': "W",
+    'W': "S",
+    'S': "E",
+    'E': "N"
+}
+
+PLAYER_TO_TEAM = {
+    'N': "NS",
+    'W': "WE",
+    'S': "NS",
+    'E': "WE"
 }
 
 DECK = {
@@ -176,6 +190,32 @@ DECK = {
     108: {'suit': SUIT['none'], 'value': VALUE['big joker']}
 }
 
+VAL_TO_STRING = {
+    2: "2",
+    3: "3",
+    4: "4",
+    5: "5",
+    6: "6",
+    7: "7",
+    8: "8",
+    9: "9",
+    10: "10",
+    11: "J",
+    12: "Q",
+    13: "K",
+    14: "A",
+    15: "S",
+    16: "B"
+}
+
+SUIT_TO_STRING = {
+    'HEART': "H",
+    'SPADE': "S",
+    'DIAMOND': "D",
+    'CLUB': "C",
+    'NONE': "J"
+}
+
 INITIAL_GAME_STATE = {
     'drawing': {
         'status': GAME_STATE['drawing'],
@@ -185,8 +225,8 @@ INITIAL_GAME_STATE = {
         'deck': DECK.copy(),
         'trump': None,
         'team level': {
-            'NE': 2,
-            'SW': 2
+            'NS': 2,
+            'WE': 2
         },
         'players': {
             'north': {
