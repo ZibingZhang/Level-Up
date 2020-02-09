@@ -27,6 +27,7 @@ body {
 
 .player-left, .player-right {
 	width:90%;
+	height:50vh;
 	display: block;
 	position: relative;
 	margin: 0 auto;
@@ -34,15 +35,18 @@ body {
 }
 
 .player-left-hand, .player-right-hand {
-    height: 95%;
-    max-height:50vh;
-    padding: 15px 0;
+    padding: 10px 0;
     display: inline-flex;
     flex-direction: column;
 	overflow-x: scroll;
 	float: left;
 	border: 1px;
 	position : relative;
+	margin-top: -20px;
+}
+
+.player-right-hand {
+    flex-direction: column-reverse;
 }
 
 .player-left-hand img, .player-right-hand img {
@@ -52,8 +56,16 @@ body {
 	border-radius:10px;
 }
 
+.player-left-hand img {
+    transform: scale(0.6) rotate(90deg);
+}
+
+.player-right-hand img {
+    transform: scale(0.6) rotate(270deg);
+}
+
 .player-left-hand img.rest, .player-right-hand img.rest {
-	margin-top: -80px;
+	margin-top: -180px;
 }
 
 
@@ -94,7 +106,7 @@ body {
 }
 
 .player-top-hand img.rest {
-	margin-right: -80px;
+	margin-right: -70px;
 }
 
 
@@ -261,36 +273,4 @@ body {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
 	background: #555;
-}
-
-
-
-#H2 {
-	background-image: url("../assets/cards/hearts/2.png");
-}
-
-
-
-.playing-card-image {
-	width: 100%;
-	height: 100%;
-	box-shadow: 0;
-	border: none;
-	border-radius:10px;    
-	background-size: cover;
-    background-repeat: no-repeat;
-    position: relative;
-}
-
-.playing-card-image.rest {
-	margin-left: -70px;
-}
-
-.playing-card-image:hover {
-	transform: translateY(-15px);
-}
-
-.playing-card-image.selected {
-	transform: translateY(-15px);
-	box-shadow: -0px 0px 5px 5px #ffff1c;
 }
