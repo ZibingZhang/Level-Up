@@ -13,79 +13,81 @@ body {
 	float: left;
 }
 
-.view-left, .view-right {
+.view-left, 
+.view-right {
 	height: 100%;
 	width: 100%;
 	float: left;
-	padding-bottom: 10px;
 }
 
-.player-left, .player-right {
-	width:90%;
-	height:100vh;
+.player-left,
+.player-right {
+	height: 85%;
 	display: block;
 	position: relative;
 	margin: 0 auto;
 	max-height: fit-content;
 }
 
-.player-left-hand, .player-right-hand {
-	padding: 10px 0;
+.player-left-hand, 
+.player-right-hand {
+	width: 95%;
+	padding: 25px 10px 0px;
 	display: inline-flex;
-	flex-direction: column;
+	flex-direction:column;
 	overflow-x: scroll;
 	float: left;
 	border: 1px;
 	position : relative;
-	margin-top: -20px;
 }
 
 .player-right-hand {
-	flex-direction: column-reverse;
+	flex-direction:column-reverse;
 }
 
-.player-left-hand img, .player-right-hand img {
+.player-left-hand img, 
+.player-right-hand img {
 	width: 100%;
 	box-shadow: 0;
 	border: none;
 	border-radius:10px;
 }
 
-.player-left-hand img {
-	transform: scale(0.6) rotate(90deg);
+.player-left-hand img.rest {
+	margin-top: -160px;
 }
 
-.player-right-hand img {
-	transform: scale(0.6) rotate(270deg);
+
+.player-right-hand img.rest {
+	margin-top: -160px;
 }
 
-.player-left-hand img.rest, .player-right-hand img.rest {
-	margin-top: -180px;
-}
 
 
 .view-center {
 	float:left;
 }
 
-.view-top {
+.view-top, 
+.view-bottom {
 	height: 25vh;
 	width: 100%;
 	float: left;
-	padding-bottom: 10px;
 }
 
-.player-top {
-	width:80%;
+.player-top,
+.player-bottom {
+	width:85%;
 	display: block;
 	position: relative;
 	margin: 0 auto;
 	max-width: fit-content;
 }
 
-.player-top-hand {
+.player-top-hand, 
+.player-bottom-hand {
 	height: 95%;
-	padding: 15px 10px 10px;
+	padding: 25px 10px 0px;
 	display: inline-flex;
 	flex-direction:row-reverse;
 	overflow-x: scroll;
@@ -94,7 +96,8 @@ body {
 	position : relative;
 }
 
-.player-top-hand img {
+.player-top-hand img, 
+.player-bottom-hand img {
 	width: 100%;
 	box-shadow: 0;
 	border: none;
@@ -105,6 +108,10 @@ body {
 	margin-right: -60px;
 }
 
+
+.player-bottom-hand img.rest {
+	margin-left: -60px;
+}
 
 .view-middle {
 	height: 50vh;
@@ -119,40 +126,18 @@ body {
 	position: relative;
 }
 
-.view-bottom {
-	width: 100%;
-	height: 25vh;
-	float: left;
+.player-top-hand .playing-card,
+.player-bottom-hand .playing-card {
+	max-width: 20%;
 }
 
-.player-bottom {
-	width:85%;
-	display: block;
-	position: relative;
-	margin: 0 auto;
-	max-width: fit-content;
+.player-left-hand .playing-card,
+.player-right-hand .playing-card {
+	max-height: 20%;
 }
 
 .player-bottom-hand {
-	height: 95%;
-	width:100%;
-	padding: 25px 10px 0px;
-	display: inline-flex;
-	overflow-x: scroll;
-	float: left;
-	border: 1px;
-	position : relative;
-}
-
-.player-bottom-hand img {
-	width: 100%;
-	box-shadow: 0;
-	border: none;
-	border-radius:10px;
-}
-
-.player-bottom-hand img.rest {
-	margin-left: -60px;
+	flex-direction:row;
 }
 
 .player-bottom-hand img:hover {
@@ -211,7 +196,8 @@ body {
 	margin-bottom: 0.5em;
 }
 
-.chatroom-user, .chatroom-command {
+.chatroom-user, 
+.chatroom-command {
 	color: black;
 	font-weight: 800;
 }
