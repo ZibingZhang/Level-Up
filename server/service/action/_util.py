@@ -6,10 +6,8 @@ from constants import \
 def _in_cards(find, hand):
     for idx, card in enumerate(hand):
         if find['suit'] == card['suit'] and find['card']['val'] == card['card']['val']:
-            return {'found': True,
-                    'location': idx}
-    return {'found': False,
-            'location': -1}
+            return idx
+    return -1
 
 
 def _round_over(gamestate):

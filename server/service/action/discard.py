@@ -9,9 +9,10 @@ def discard(position, cards):
     gamestate = gamestateDao.get_gamestate()
 
     for card in cards:
-        hand_info = _in_cards(card, gamestate['player'][LETTER_TO_POSITION_KEY[position.upper()]]['hand'])
-        if hand_info['found']:
-            del gamestate['players'][LETTER_TO_POSITION_KEY[position.upper()]]['hand'][hand_info['location']]
+        hand_info = _in_cards(card, gamestate['players'][LETTER_TO_POSITION_KEY[position.upper()]]['cards'])
+        if hand_info != -1:
+            gamestate['deck'].append(card)
+            del gamestate['players'][LETTER_TO_POSITION_KEY[position.upper()]]['cards'][hand_info]
         else:
             return {'error': True,
                     'message': "Card not in player's hand"}

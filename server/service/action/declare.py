@@ -14,7 +14,7 @@ def declare(position, card):
                 'message': "Cannot declare card with value your team is not on"}
     else:
         gamestate['trump']['suit'] = card['suit']
-        gamestate['trump']['value'] = card['value']
+        gamestate['trump']['value'] = gamestate['team level'][PLAYER_TO_TEAM[position]]
         gamestateDao.set_gamestate(gamestate)
         return {'error': False,
                 'position': position,
