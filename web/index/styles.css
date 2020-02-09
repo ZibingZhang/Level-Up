@@ -13,11 +13,6 @@ body {
 	float: left;
 }
 
-.player-view {
-	width: 100%;
-	height: 60vh;
-}
-
 .view-left, .view-right {
 	height: 100%;
 	width: 100%;
@@ -27,7 +22,7 @@ body {
 
 .player-left, .player-right {
 	width:90%;
-	height:50vh;
+	height:100vh;
 	display: block;
 	position: relative;
 	margin: 0 auto;
@@ -35,9 +30,9 @@ body {
 }
 
 .player-left-hand, .player-right-hand {
-    padding: 10px 0;
-    display: inline-flex;
-    flex-direction: column;
+	padding: 10px 0;
+	display: inline-flex;
+	flex-direction: column;
 	overflow-x: scroll;
 	float: left;
 	border: 1px;
@@ -46,7 +41,7 @@ body {
 }
 
 .player-right-hand {
-    flex-direction: column-reverse;
+	flex-direction: column-reverse;
 }
 
 .player-left-hand img, .player-right-hand img {
@@ -57,11 +52,11 @@ body {
 }
 
 .player-left-hand img {
-    transform: scale(0.6) rotate(90deg);
+	transform: scale(0.6) rotate(90deg);
 }
 
 .player-right-hand img {
-    transform: scale(0.6) rotate(270deg);
+	transform: scale(0.6) rotate(270deg);
 }
 
 .player-left-hand img.rest, .player-right-hand img.rest {
@@ -74,14 +69,14 @@ body {
 }
 
 .view-top {
-	height: 17vh;
+	height: 25vh;
 	width: 100%;
 	float: left;
 	padding-bottom: 10px;
 }
 
 .player-top {
-	width:70%;
+	width:80%;
 	display: block;
 	position: relative;
 	margin: 0 auto;
@@ -89,9 +84,10 @@ body {
 }
 
 .player-top-hand {
-    height: 95%;
-    padding: 15px 0;
+	height: 95%;
+	padding: 15px 10px 10px;
 	display: inline-flex;
+	flex-direction:row-reverse;
 	overflow-x: scroll;
 	float: left;
 	border: 1px;
@@ -106,15 +102,15 @@ body {
 }
 
 .player-top-hand img.rest {
-	margin-right: -70px;
+	margin-right: -60px;
 }
 
 
 .view-middle {
-    height: 50vh;
-    width: 100%;
-    float: left;
-    display: block;
+	height: 50vh;
+	width: 100%;
+	float: left;
+	display: block;
 }
 
 .playing-card {
@@ -125,48 +121,22 @@ body {
 
 .view-bottom {
 	width: 100%;
-	height: 40vh;
+	height: 25vh;
 	float: left;
-}
-
-.player-submission {
-	width: 80%;
-	height: 12.5vh;
-	display: inline-block;
-	float: left;
-}
-
-.player-buttons {
-	width: 20%;
-	display: inline-block;
-	height: 12.5vh;
-	z-index: 999;
-}
-
-.player-buttons button {
-  background-color: #fff;
-  border: none;
-  color: black;
-  padding: 0.45em 0.75em;
-  text-align: center;
-  text-decoration: none;
-  display: block;
-  font-size: 0.75em;
-  float: right;
-  margin: 0.2em 1.25em 0.5em;
 }
 
 .player-bottom {
-	height: 27.5vh;
+	width:85%;
 	display: block;
 	position: relative;
 	margin: 0 auto;
+	max-width: fit-content;
 }
 
 .player-bottom-hand {
-    height: 95%;
-    width:100%;
-    padding: 25px 12.5px 0;
+	height: 95%;
+	width:100%;
+	padding: 25px 10px 0px;
 	display: inline-flex;
 	overflow-x: scroll;
 	float: left;
@@ -182,7 +152,7 @@ body {
 }
 
 .player-bottom-hand img.rest {
-	margin-left: -80px;
+	margin-left: -60px;
 }
 
 .player-bottom-hand img:hover {
@@ -194,9 +164,30 @@ body {
 	box-shadow: -0px 0px 5px 5px #ffff1c;
 }
 
-.user-buttons {
-	width: 100%;
-	height: 100%;
+.player-buttons {
+	width: 20%;
+	display: inline-block;
+	height: 12.5vh;
+	z-index: 999;
+}
+
+.player-buttons button {
+	background-color: #fff;
+	border: none;
+	color: black;
+	padding: 0.45em 0.75em;
+	text-align: center;
+	text-decoration: none;
+	display: block;
+	font-size: 0.75em;
+	float: right;
+	margin: 0.2em 1.25em 0.5em;
+}
+
+.player-submission {
+	width: 80%;
+	height: 12.5vh;
+	display: inline-block;
 	float: left;
 }
 
