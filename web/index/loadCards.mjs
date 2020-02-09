@@ -70,8 +70,4 @@ function loadCards() {
             document.state.cards[key] = img;
         }
     }
-
-    // const hand = document.getElementsByClassName('player-bottom-hand')[0];
-    // const card = document.state.cards['C2'].cloneNode(true);
-    // hand.appendChild(card);
 }

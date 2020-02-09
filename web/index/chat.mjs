@@ -1,8 +1,10 @@
+import { addToHand } from './card.mjs';
 import { 
     URL,
     CHAT,
     COMMAND,
-    DEFAULT
+    DEFAULT,
+    POSITION_TO_DIRECTION
 } from './constants.mjs';
 
 export {
@@ -14,21 +16,48 @@ export {
 
 function listenToEnter() {
     const chatroom = document.getElementsByClassName('chatroom-user-input')[0];
-    chatroom.addEventListener('keyup', function(event) {    
-    if (event.key === 'Enter') {
-        const message = chatroom.value;
-        axios.post(`${URL}/chat`, {
-            playerName: document.state.name,
-            message
-        }).then(r => {
-            if (r.data.type === CHAT.TYPE.MESSAGE) {
-                addChatroomMessage(true, document.state.name, message);
-            } else if (r.data.type === CHAT.TYPE.COMMAND) {
-                commandResponse(r.data);
+    chatroom.addEventListener('keyup', async function(event) {    
+        if (event.key === 'Enter') {
+            const message = chatroom.value;
+            if (message === '/drawall\n') {
+                let i;
+                for (i = 0; i < 25; i++) {
+                    await axios.post(`${URL}/chat`, {playerName: document.state.name, message: '/draw N\n'}).then(r => addToHand(POSITION_TO_DIRECTION[r.data.position], r.data.card));
+                    await axios.post(`${URL}/chat`, {playerName: document.state.name, message: '/draw W\n'}).then(r => addToHand(POSITION_TO_DIRECTION[r.data.position], r.data.card));
+                    await axios.post(`${URL}/chat`, {playerName: document.state.name, message: '/draw S\n'}).then(r => addToHand(POSITION_TO_DIRECTION[r.data.position], r.data.card));
+                    await axios.post(`${URL}/chat`, {playerName: document.state.name, message: '/draw E\n'}).then(r => {
+                        addToHand(POSITION_TO_DIRECTION[r.data.position], r.data.card);
+                        if (r.data.message) {
+                            addChatroomCommand(r.data.message);
+                            r.data.cards.forEach(card => {
+                                addToHand('bottom', card);
+                            });
+                        }
+                    });
+                }
+                chatroom.value = '';
+                return;
+            } else if (message === '/clear\n') {
+                chatroom.value = '';
+                var chatroomBlocks = document.getElementsByClassName('chatroom-block');
+                while(chatroomBlocks.length > 0) {
+                    chatroomBlocks[0].parentNode.removeChild(chatroomBlocks[0]);
+                }
+                return;
             }
-        });
-        chatroom.value = '';
-    };
+
+            axios.post(`${URL}/chat`, {
+                playerName: document.state.name,
+                message
+            }).then(r => {
+                if (r.data.type === CHAT.TYPE.MESSAGE) {
+                    addChatroomMessage(true, document.state.name, message);
+                } else if (r.data.type === CHAT.TYPE.COMMAND) {
+                    commandResponse(r.data);
+                }
+            });
+            chatroom.value = '';
+        };
     });
 };
 
