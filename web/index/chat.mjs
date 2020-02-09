@@ -57,7 +57,7 @@ function commandResponse(data) {
         } else {
             // ACTIONS
             if (command === COMMAND.ACTION.DRAW) {
-
+                console.log(data)
             } else if (command === COMMAND.ACTION.DISCARD) {
 
             } else if (command === COMMAND.ACTION.PLAY) {

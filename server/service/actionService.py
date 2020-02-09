@@ -1,7 +1,12 @@
-from .gamestate.drawingPhase import *
-from .gamestate.inPlay import *
-from ..dao import gamestateDao
-from ..constants import LETTER_TO_POSITION_KEY
+from dao import gamestateDao
+from constants import \
+    LETTER_TO_POSITION_KEY, \
+    SUIT_TO_STRING, \
+    VAL_TO_STRING, \
+    LETTER_TO_POSITION, \
+    GAME_STATE, \
+    DRAW_ORDER,  \
+    PLAYER_TO_TEAM
 
 
 def _in_cards(find, hand):
@@ -14,7 +19,7 @@ def _in_cards(find, hand):
 
 
 def _card_to_string(card):
-    SUIT_TO_STRING[card['suit']] + VAL_TO_STRING[card['value']['rank']]
+    return SUIT_TO_STRING[card['suit']] + VAL_TO_STRING[card['value']['rank']]
 
 
 def _round_over(gamestate):
@@ -44,12 +49,13 @@ def discard(position, cards):
 def draw(position):
     gamestate = gamestateDao.get_gamestate()
 
-    if LETTER_TO_POSITION_KEY[position.upper()] != gamestate['draw next']:
+    if LETTER_TO_POSITION[position.upper()] != gamestate['draw next']:
         return {'error': True,
                 'message': "Not your turn to draw"}
     else:
-        card = gamestate['deck'].pop(len(gamestate['deck'])) # replace with random card choosing
-        gamestate['players'][LETTER_TO_POSITION_KEY[position.upper()]]['hand'].append(card)
+        card = gamestate['deck'].pop(str(len(gamestate['deck'])))  # replace with random card choosing
+        print(gamestate['players'])
+        gamestate['players'][LETTER_TO_POSITION_KEY[position.upper()]]['cards'].append(card)
         if len(gamestate['deck']) == 8:
             gamestate['status'] = GAME_STATE['discarding']
             gamestateDao.set_gamestate(gamestate)
@@ -58,7 +64,7 @@ def draw(position):
                     'position': position,
                     'card': _card_to_string(card)}  # to replace
         else:
-            gamestate['draw next'] = POSITION[DRAW_ORDER[gamestate['draw next']]]
+            gamestate['draw next'] = DRAW_ORDER[gamestate['draw next']]
             gamestateDao.set_gamestate(gamestate)
             return {'error': False,
                     'position': position,

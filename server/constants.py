@@ -36,14 +36,14 @@ COMMAND = {
     'start': "START",
     'action': {
         'draw': "DRAW",
-        'discard': "DISVALUE",
+        'discard': "DISCARD",
         'play': "PLAY",
         'declare': "DECLARE"
     }
 }
 
 GAME_STATE = {
-    'not_started': "NOT_STARTED",
+    'not started': "NOT_STARTED",
     'drawing': "DRAWING",
     'discarding': "DISCARDING",
     'in play': "IN_PLAY",
@@ -51,7 +51,7 @@ GAME_STATE = {
     'game over': "GAME_OVER"
 }
 
-POSITION = {
+LETTER_TO_POSITION = {
     'N': "NORTH",
     'E': "EAST",
     'S': "SOUTH",
@@ -66,10 +66,10 @@ LETTER_TO_POSITION_KEY = {
 }
 
 DRAW_ORDER = {
-    'N': "W",
-    'W': "S",
-    'S': "E",
-    'E': "N"
+    'NORTH': "WEST",
+    'WEST': "SOUTH",
+    'SOUTH': "EAST",
+    'EAST': "NORTH"
 }
 
 PLAYER_TO_TEAM = {
@@ -219,7 +219,7 @@ SUIT_TO_STRING = {
 INITIAL_GAME_STATE = {
     'drawing': {
         'status': GAME_STATE['drawing'],
-        'draw next': POSITION['N'],
+        'draw next': LETTER_TO_POSITION['N'],
         'last eight': None,
         'defender': None,
         'deck': DECK.copy(),
@@ -230,19 +230,19 @@ INITIAL_GAME_STATE = {
         },
         'players': {
             'north': {
-                'position': POSITION['N'],
+                'position': LETTER_TO_POSITION['N'],
                 'cards': []
             },
             'east': {
-                'position': POSITION['E'],
+                'position': LETTER_TO_POSITION['E'],
                 'cards': []
             },
             'south': {
-                'position': POSITION['S'],
+                'position': LETTER_TO_POSITION['S'],
                 'cards': []
             },
             'west': {
-                'position': POSITION['W'],
+                'position': LETTER_TO_POSITION['W'],
                 'cards': []
             }
         }

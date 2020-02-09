@@ -55,8 +55,8 @@ const URLS = {
     'SQ': '../assets/cards/spades/Q.png',
     'SK': '../assets/cards/spades/K.png',
     'SA': '../assets/cards/spades/A.png',
-    'JS': '../assets/cards/jokers/A.png',
-    'JB': '../assets/cards/jokers/A.png',
+    'JS': '../assets/cards/jokers/little.png',
+    'JB': '../assets/cards/jokers/big.png',
 }
 
 function loadCards() {

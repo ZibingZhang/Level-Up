@@ -1,6 +1,7 @@
 from dao import messageDao, playersDao, gamestateDao
 from constants import COMMAND, GAME_STATE, INITIAL_GAME_STATE
 from service import chatServiceWrapper
+from service import actionService
 
 
 # Assume the host is N
@@ -20,7 +21,7 @@ def command(cmd, params, **kwargs):
     elif cmd == COMMAND['rejoin']:
         result = _rejoin(params)
     elif cmd == COMMAND['start']:
-        result = _start(params, player_name=kwargs['player_name'])
+        result = _start(params)
     # ACTIONS
     elif cmd == COMMAND['action']['draw']:
         result = _draw(params, player_name=kwargs['player_name'])
@@ -33,6 +34,8 @@ def command(cmd, params, **kwargs):
     else:
         result = {'error': True,
                   'message': 'Unknown command'}
+
+    print(result)
 
     result['type'] = "COMMAND"
     result['command'] = cmd.upper()
@@ -105,8 +108,10 @@ def _host(params):
         return {'error': True,
                 'message': "Game already in progress"}
     else:
-        print(messageDao.get_largest_id())
         playersDao.add_player(position, player_name)
+        gamestateDao.set_gamestate({
+            'status': GAME_STATE['not started']
+        })
         return {'error': False,
                 'message': "You are hosting a game",
                 'playerName': player_name,
@@ -135,7 +140,7 @@ def _rejoin(params):
                 'messageId': messageDao.get_largest_id()}
 
 
-@chatServiceWrapper.require_host
+# @chatServiceWrapper.require_host
 def _start(params):
     if len(params) != 0:
         return {'error': True,
@@ -154,19 +159,25 @@ def _start(params):
 
 @chatServiceWrapper.require_host
 def _draw(params):
-    pass
+    if len(params) != 1:
+        return {'error': True,
+                'message': "Incorrect number of arguments"}
+
+    position = params[0]
+
+    return actionService.draw(position)
 
 
 @chatServiceWrapper.require_host
 def _discard(params):
-    pass
+    return {}
 
 
 @chatServiceWrapper.require_host
 def _play(params):
-    pass
+    return {}
 
 
 @chatServiceWrapper.require_host
 def _declare(params):
-    pass
+    return {}

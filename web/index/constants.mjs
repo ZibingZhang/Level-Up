@@ -19,7 +19,7 @@ const COMMAND = {
     RESET: "RESET",
     HOST: "HOST",
     REJOIN: "REJOIN",
-    ACTIONS: {
+    ACTION: {
         DRAW: "DRAW",
         DISCARD: "DISCARD",
         PLAY: "PLAY",

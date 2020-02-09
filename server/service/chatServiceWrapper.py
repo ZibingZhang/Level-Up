@@ -7,5 +7,5 @@ def require_host(func):
             return {'error': True,
                     'message': 'Must be host to execute command'}
         else:
-            func(*args, **kwargs)
+            return func(*args)
     return decorated
