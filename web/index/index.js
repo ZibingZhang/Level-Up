@@ -1,8 +1,4 @@
-$('.player-bottom-hand .playing-card').click(function() {
-	$(this).toggleClass('selected');
-});
-
-$('.player-bottom-hand .playing-card-image').click(function() {
+$('#bottom .playing-card').click(function() {
 	$(this).toggleClass('selected');
 });
 

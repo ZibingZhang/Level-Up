@@ -16,56 +16,7 @@ body {
 .view-left, 
 .view-right {
 	height: 100%;
-	width: 100%;
 	float: left;
-}
-
-.player-left,
-.player-right {
-	height: 85%;
-	display: block;
-	position: relative;
-	margin: 0 auto;
-	max-height: fit-content;
-}
-
-.player-left-hand, 
-.player-right-hand {
-	width: 95%;
-	padding: 25px 10px 0px;
-	display: inline-flex;
-	flex-direction:column;
-	overflow-x: scroll;
-	float: left;
-	border: 1px;
-	position : relative;
-}
-
-.player-right-hand {
-	flex-direction:column-reverse;
-}
-
-.player-left-hand img, 
-.player-right-hand img {
-	width: 100%;
-	box-shadow: 0;
-	border: none;
-	border-radius:10px;
-}
-
-.player-left-hand img.rest {
-	margin-top: -160px;
-}
-
-
-.player-right-hand img.rest {
-	margin-top: -160px;
-}
-
-
-
-.view-center {
-	float:left;
 }
 
 .view-top, 
@@ -75,8 +26,31 @@ body {
 	float: left;
 }
 
-.player-top,
-.player-bottom {
+.view-center {
+	float:left;
+}
+
+.view-left-fixed, 
+.view-right-fixed {
+	transform: translateX(-37%) translateY(100%) rotate(90deg);
+	position: absolute;
+	height: 25vh;
+	width: 80vh;
+	float: left;
+}
+
+img {
+	width: 100%;
+	box-shadow: 0;
+	border: none;
+	border-radius:10px;
+}
+
+img.rest {
+	margin-left: -60px;
+}
+
+.player {
 	width:85%;
 	display: block;
 	position: relative;
@@ -84,33 +58,31 @@ body {
 	max-width: fit-content;
 }
 
-.player-top-hand, 
-.player-bottom-hand {
+.hand {
 	height: 95%;
 	padding: 25px 10px 0px;
 	display: inline-flex;
-	flex-direction:row-reverse;
+	flex-direction: row;
 	overflow-x: scroll;
 	float: left;
 	border: 1px;
 	position : relative;
 }
 
-.player-top-hand img, 
-.player-bottom-hand img {
-	width: 100%;
-	box-shadow: 0;
-	border: none;
-	border-radius:10px;
+.playing-card {
+	min-width: 0;
+	min-height: 0;
+	position: relative;
+	max-width: 20%;
 }
 
-.player-top-hand img.rest {
-	margin-right: -60px;
+#bottom img:hover {
+	transform: translateY(-15px);
 }
 
-
-.player-bottom-hand img.rest {
-	margin-left: -60px;
+#bottom img.selected {
+	transform: translateY(-15px);
+	box-shadow: -0px 0px 5px 5px #ffff1c;
 }
 
 .view-middle {
@@ -120,33 +92,36 @@ body {
 	display: block;
 }
 
-.playing-card {
-	min-width: 0;
-	min-height: 0;
+.played {
+	float: left;
+	height: 100%;
+}
+
+.played div {
+	background-color: white;
+	opacity: 50%;
+	width: 100%;
+}
+
+.played .left, .played .right {
+	height: 90%;
+	margin-top: 10%;
+}
+
+.played .top {
+	height: 40%;
+	margin-top: 5%;
+}
+
+.played .bottom {
+	height: 40%;
+	margin-top: 10%;
+}
+
+.played img {
 	position: relative;
-}
-
-.player-top-hand .playing-card,
-.player-bottom-hand .playing-card {
-	max-width: 20%;
-}
-
-.player-left-hand .playing-card,
-.player-right-hand .playing-card {
-	max-height: 20%;
-}
-
-.player-bottom-hand {
-	flex-direction:row;
-}
-
-.player-bottom-hand img:hover {
-	transform: translateY(-15px);
-}
-
-.player-bottom-hand img.selected {
-	transform: translateY(-15px);
-	box-shadow: -0px 0px 5px 5px #ffff1c;
+	width: 5vw;
+	height: auto;
 }
 
 .player-buttons {
@@ -230,10 +205,7 @@ body {
 	width: 10px;
 }
 
-.player-bottom-hand::-webkit-scrollbar, 
-.player-top-hand::-webkit-scrollbar, 
-.player-left-hand::-webkit-scrollbar, 
-.player-right-hand::-webkit-scrollbar {
+.hand::-webkit-scrollbar {
 	display:none;
 }
 
