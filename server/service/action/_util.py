@@ -1,7 +1,8 @@
 from constants import \
     SUIT_TO_STRING, \
     VAL_TO_STRING, \
-    LETTER_TO_POSITION_KEY
+    LETTER_TO_POSITION_KEY, \
+    PLAYER_TO_TEAM
 
 
 def _in_cards(find, hand):
@@ -26,9 +27,38 @@ def _trick_over(gamestate):
         return False
 
 
+def _rank_hand(gamestate, position):
+    player = gamestate['trick']['current_play'][LETTER_TO_POSITION_KEY[position.upper()]]
+    if len(player['cards']) == 2:
+        if player['cards'][0]['value']['rank'] == player['cards'][1]['value']['rank'] \
+                and player['cards'][0]['suit'] == player['cards'][1]['suit']:
+            player['rank'] = 2
+        else:
+            player['rank'] = 1
+    else:
+        player['rank'] = 1
+
+
+def _trick_winner(gamestate):
+    pass
+    return "N"
+
+
+def _points_in_current_play(gamestate):
+    total = 0
+    for player in gamestate['players'].keys():
+        for card in gamestate['trick']['current_play'][player]['cards']:
+            total += card['value']['points']
+    return total
+
+
 def _assign_points(gamestate):
+    [_rank_hand(gamestate, position) for position in gamestate['players'].keys()]
+    winner = _trick_winner(gamestate)
+    gamestate['trick']['starter'] = winner
+    if gamestate['defender'] == PLAYER_TO_TEAM[winner]:
+        gamestate['points'] += _points_in_current_play(gamestate)
     gamestate['trick']['current_play'] = []
-    pass  # need to change starter position based on winner, assign points, and find winner
 
 
 def _card_to_string(card):

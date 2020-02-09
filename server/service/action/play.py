@@ -15,7 +15,7 @@ from constants import \
 
 def play(position, cards):
     gamestate = gamestateDao.get_gamestate()
-    player_current_play = gamestate['trick']['current_play'][LETTER_TO_POSITION_KEY[position.upper()]]
+    player_current_play = gamestate['trick']['current_play'][LETTER_TO_POSITION_KEY[position.upper()]]['cards']
     if len(cards) > 2:
         return {'error': True,
                 'message': "More than two cards cannot be played (currently)"}
