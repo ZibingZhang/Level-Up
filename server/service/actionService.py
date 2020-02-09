@@ -1,10 +1,10 @@
 from .gamestate.drawingPhase import *
 from .gamestate.inPlay import *
-from ..constants import *
 from dao import gamestateDao
+from constants import LETTER_TO_POSITION_KEY
 
 
-def in_hand(find, hand):
+def _in_cards(find, hand):
     for idx, card in enumerate(hand):
         if find['suit'] == card['suit'] and find['card']['val'] == card['card']['val']:
             return {'found': True,
@@ -16,7 +16,7 @@ def in_hand(find, hand):
 def discard(position, cards):
     gamestate = gamestateDao.get_gamestate()
     for card in cards:
-        hand_info = in_hand(card, gamestate['player'][position]['hand'])
+        hand_info = _in_cards(card, gamestate['player'][position]['hand'])
         if hand_info['found']:
             gamestate['discard'].append(card)
             del gamestate['players'][position]['hand'][hand_info['location']]
@@ -27,17 +27,18 @@ def discard(position, cards):
             'message': "Cards have been added to discard pile"}
 
 
-def draw(posn, card):
-    gamestate = drawing_phase
-    hand_info = in_hand(card, gamestate['deck'])
-    if hand_info['found']:
-        gamestate['player'][posn]['hand'].append(card)
-        del gamestate['deck'][hand_info['location']]
-        return {'error': False,
-                'message': "Card removed from deck and added to player's hand"}
-    else:
+def draw(position):
+    gamestate = gamestateDao.get_gamestate()
+
+    if position != gamestate['draw next']:
         return {'error': True,
-                'message': "Card not in deck"}
+                'message': "Not your turn to draw"}
+    else:
+        card = gamestate['deck'].pop(len(gamestate['deck']))
+        gamestate['players'][LETTER_TO_POSITION_KEY[position.upper()]]['hand'].append(card)
+        return {'error': False,
+                'position': position,
+                'card': None} # to replace
 
 
 def declare(card):
@@ -103,7 +104,7 @@ def play(posn, cards):
     gamestate = in_play
     sorted_cards = sorted(cards, key=lambda k: k['val'])
     for card in cards:
-        hand_info = in_hand(card, gamestate['player'][posn]['hand'])
+        hand_info = _in_cards(card, gamestate['player'][posn]['hand'])
         if hand_info['found']:
             gamestate['discard'].append(card)
             del gamestate['players'][posn]['hand'][hand_info['location']]

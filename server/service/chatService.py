@@ -1,5 +1,5 @@
 from dao import messageDao, playersDao, gamestateDao
-from constants import COMMAND, GAME_STATE, DECK
+from constants import COMMAND, GAME_STATE, INITIAL_GAME_STATE
 from service import chatServiceWrapper
 
 
@@ -147,15 +147,7 @@ def _start(params):
         return {'error': True,
                 'message': "Cannot start the game during a game"}
     else:
-        gamestateDao.set_gamestate({
-            'status': GAME_STATE['drawing'],
-            'last eight': None,
-            'defender': None,
-            'deck': DECK.copy(),
-            'players': {
-                'N'
-            }
-        })
+        gamestateDao.set_gamestate(INITIAL_GAME_STATE['drawing'])
         return {'error': False,
                 'message': "You have started the game"}
 

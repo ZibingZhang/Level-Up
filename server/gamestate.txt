@@ -19,17 +19,12 @@ Drawing Phase:
             - Value
     - Players
         - Player
-            - Hand
-                - Card
-                    - Quantity
+            - Cards
             - Position
-            - First Move : Boolean
-            - Defender : 2 Players
     - Trump
         - Trump Suit
         - Trump Number
-    - Teams
-        - Level
+    - Team Level
 
 Discarding Phase: same as Drawing Phase
 
