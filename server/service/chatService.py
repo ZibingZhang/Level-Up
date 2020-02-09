@@ -35,8 +35,6 @@ def command(cmd, params, **kwargs):
         result = {'error': True,
                   'message': 'Unknown command'}
 
-    print(result)
-
     result['type'] = "COMMAND"
     result['command'] = cmd.upper()
     return result
