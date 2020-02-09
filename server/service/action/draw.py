@@ -22,7 +22,7 @@ def draw(position):
             if gamestate['trump'] is None:
                 if gamestate['last eight'] is None:
                     gamestate['last eight'] = "N"  # hard coded
-
+                    gamestate['players']['north']['cards'].extend(gamestate['deck'])  # hard coded
                 gamestate['trump'] = {
                     'suit': SUIT['heart'],  # hard coded
                     'value': gamestate['team level'][PLAYER_TO_TEAM[gamestate['last eight']]]

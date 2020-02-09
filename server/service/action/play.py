@@ -16,9 +16,9 @@ def play(position, cards):
     sorted_cards = sorted(cards, key=lambda k: k['val'])
     for card in cards:
         hand_info = _in_cards(card, gamestate['player'][position]['hand'])
-        if hand_info['found']:
+        if hand_info != -1:
             gamestate['discard'].append(card)
-            del gamestate['players'][position]['hand'][hand_info['location']]
+            del gamestate['players'][position]['hand'][hand_info]
         else:
             return {'error': True,
                     'message': "Card not in player's hand"}
