@@ -18,15 +18,3 @@ def declare(position, cards):
 
 def play(position, cards):
     return play_action.play(position, cards)
-
-
-
-
-
-
-
-
-
-
-
-

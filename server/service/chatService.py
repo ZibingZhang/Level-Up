@@ -163,6 +163,13 @@ def _draw(params):
 
     position = params[0]
 
+    # short cut
+    if position == "R":
+        gamestate = gamestateDao.get_gamestate()
+        next_draw = gamestate['next draw']
+        number_left = len(gamestate['deck']) - 8
+
+
     return actionService.draw(position)
 
 

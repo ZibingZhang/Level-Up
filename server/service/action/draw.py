@@ -4,7 +4,9 @@ from constants import \
     LETTER_TO_POSITION, \
     LETTER_TO_POSITION_KEY, \
     GAME_STATE, \
-    DRAW_ORDER
+    DRAW_ORDER, \
+    SUIT, \
+    PLAYER_TO_TEAM
 
 
 def draw(position):
@@ -17,15 +19,24 @@ def draw(position):
         card = gamestate['deck'].pop(str(len(gamestate['deck'])))  # replace with random card choosing
         gamestate['players'][LETTER_TO_POSITION_KEY[position.upper()]]['cards'].append(card)
         if len(gamestate['deck']) == 8:
+            if gamestate['trump'] is None:
+                if gamestate['last eight'] is None:
+                    gamestate['last eight'] = "N"  # hard coded
+
+                gamestate['trump'] = {
+                    'suit': SUIT['heart'],  # hard coded
+                    'value': gamestate['team level'][PLAYER_TO_TEAM[gamestate['last eight']]]
+                }
+
             gamestate['status'] = GAME_STATE['discarding']
             gamestateDao.set_gamestate(gamestate)
             return {'error': False,
                     'message': "Now waiting for discarding",
                     'position': position,
-                    'card': _card_to_string(card)}  # to replace
+                    'card': _card_to_string(card)}
         else:
             gamestate['draw next'] = DRAW_ORDER[gamestate['draw next']]
             gamestateDao.set_gamestate(gamestate)
             return {'error': False,
                     'position': position,
-                    'card': _card_to_string(card)}  # to replace
+                    'card': _card_to_string(card)}
